@@ -9,20 +9,20 @@ const {Node} = require('../extensions/list-tree.js');
 module.exports = class BinarySearchTree {
 
     constructor() {
-        this.root = null;
+        this.tree = null;
     }
 
     root() {
-        return this.root !== null ? this.root : null;
+        return this.tree !== null ? this.tree : null;
     }
 
     add(data) {
         const newNode = new Node(data);
-        if (!this.root) {
-            this.root = newNode;
+        if (!this.tree) {
+            this.tree = newNode;
             return;
         }
-        let currentNode = this.root;
+        let currentNode = this.tree;
         while (currentNode) {
             if (newNode.data < currentNode.data) {
                 if (!currentNode.left) {
@@ -43,7 +43,7 @@ module.exports = class BinarySearchTree {
 
     has(data) {
         let found = false,
-            current = this.root
+            current = this.tree;
 
 
         while (!found && current) {
@@ -65,7 +65,7 @@ module.exports = class BinarySearchTree {
 
     find(data) {
         let found = false,
-            current = this.root
+            current = this.tree;
 
         while (!found && current) {
 
@@ -75,10 +75,8 @@ module.exports = class BinarySearchTree {
 
             } else if (data > current.data) {
                 current = current.right;
-
-
             } else {
-                return current.data;
+                return current;
             }
         }
         return null;
@@ -86,7 +84,7 @@ module.exports = class BinarySearchTree {
 
     remove(data, node) {
         if (!node) {
-            node = this.root;
+            node = this.tree;
         }
         if (data < node.data) {
             node.left = this.remove(data, node.left);
@@ -111,7 +109,7 @@ module.exports = class BinarySearchTree {
         return node;
     }
 
-    min(node = this.root) {
+    min(node = this.tree) {
         if (node.left) {
             return this.min(node.left)
         } else {
@@ -119,12 +117,13 @@ module.exports = class BinarySearchTree {
         }
     }
 
-    max(node = this.root) {
+    max(node = this.tree) {
         if (node.right) {
             return this.max(node.right)
         } else {
             return node.data;
         }
     }
+
 
 }
